@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/chessboard-0.3.0.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/chess.min.js"></script>
+    <script src="js/chessboard-0.3.0.min.js"></script>
+    
+    
+
+    <title>..::EDUCHESS::..</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">EDUCHESS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Iniciar Juego</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        
+        
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Nuevo Juego
+          </button>-->
+        <div class="row" >
+            <div class="col-sm-6 col-md-6">
+
+                <div id="board" style="width: 550px"></div>
+
+
+                <!--<div id="engineStatus">...</div>-->
+            </div>
+            <div class="col-sm-6 col-md-6">
+               
+                    <div class="movelist">
+                        <h3 align="center" class="text-success">Movimientos</h3>
+    
+                        <div id="pgn">
+    
+    
+                        </div>
+    
+    
+    
+    
+                    </div>
+                
+            
+
+            
+                   
+                    <div class="status"></div>
+
+              
+
+              
+
+               
+
+               
+                
+            </div>
+                
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Nuevo Juego</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="skillLevel" class="control-label col-xs-4 col-sm-6 col-md-4">Escoge el Nivel</label>
+                                    <div class="col-xs-4 col-sm-6 col-md-4">
+                                        <select id="skillLevel" class="custom-select" required>
+                                            <option value="" disabled>Seleccionar el nivel</option>
+                                            <option value=0>Facil</option>
+                                            <option value=10>Medio</option>
+                                            <option value=20>Dificil</option>
+                                          
+                                          </select>
+                                        
+                                    </div>
+                                </div>
+                               
+                                
+                                <div class="form-group">
+                                    <label for="color" class="control-label col-xs-4 col-sm-6 col-md-4">Escoge el color que vas a jugar</label>
+                                    <div class="col-xs-4 col-sm-6 col-md-4">
+                                      
+                                       <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-primary active" id="color-white"><input type="radio" name="color">Blancas</label>
+                                            <label class="btn btn-primary" id="color-black"><input type="radio" name="color">Negras</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="color" class="control-label col-xs-4 col-sm-6 col-md-4"></label>
+                                    <div class="col-xs-4 col-sm-6 col-md-4">
+                                        <button type="button" class="btn btn-primary" onclick="newGame()" data-dismiss="modal" id="iniciarJuego">Iniciar Juego</button>
+                                    </div>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="color" class="control-label col-xs-4 col-sm-6 col-md-4">Coronar a</label>
+                                    <div class="col-xs-4 col-sm-6 col-md-4">
+                                        <select id=promote>
+                            <option value=q selected>Reina</option>
+                            <option value=r>Torre</option>
+                            <option value=b>Arfil</option>
+                            <option value=n>Caballo</option>
+                          </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+               
+                <!--<h5>Evaluation</h5>-->
+                <pre id=evaluation style="display:none"></pre>
+            
+            <script src="enginegame.js"></script>
+            <script>
+                $('document').ready(function()
+                {
+                    
+                   
+        $("#exampleModal").modal('show');
+
+        var closeButtonClicked = false;
+
+$('#iniciarJuego').on('click', function () {
+    closeButtonClicked = true;
+});
+
+$('#exampleModal').on('hide.bs.modal', function (e) {
+    if (!closeButtonClicked) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+    closeButtonClicked = false;
+});
+
+       
+
+    
+
+                });
+                var wait_for_script;
+                var newGame = function() {};
+
+                /// We can load Stockfish.js via Web Workers or directly via a <script> tag.
+                /// Web Workers are better since they don't block the UI, but they are not always avaiable.
+                (function fix_workers() {
+                    var script_tag;
+                    /// Does the environment support web workers?  If not, include stockfish.js directly.
+                    ///NOTE: Since web workers don't work when a page is loaded from the local system, we have to fake it there too. (Take that security measures!)
+                    if (!Worker || (location && location.protocol === "file:")) {
+                        var script_tag = document.createElement("script");
+                        script_tag.type = "text/javascript";
+                        script_tag.src = "stockfish.asm.js";
+                        script_tag.onload = init;
+                        document.getElementsByTagName("head")[0].appendChild(script_tag);
+                        wait_for_script = true;
+                        setTimeout(function() {
+                            console.warn("Loading this example from the file: protocol will load the slower asm.js engine.\nRun server.js and then load http://localhost:8080/ for the WASM engine.");
+                        }, 3000);
+                    }
+                }());
+
+                function init() {
+                    var game = engineGame();
+
+                    newGame = function newGame() {
+                        var baseTime = parseFloat($('#timeBase').val()) * 60;
+                        var inc = parseFloat($('#timeInc').val());
+                        var skill = parseInt($('#skillLevel').val());
+                        $('.status').html('');
+                        game.reset();
+                        game.setTime(baseTime, inc);
+                        game.setSkillLevel(skill);
+                        game.setPlayerColor($('#color-white').hasClass('active') ? 'white' : 'black');
+                        game.setDisplayScore($('#showScore').is(':checked'));
+                        game.start();
+                    }
+
+                    game.setSkillLevel
+
+                    document.getElementById("skillLevel").addEventListener("change", function() {
+                        game.setSkillLevel(parseInt(this.value, 10));
+                    });
+
+                    newGame();
+                }
+
+                /// If we load Stockfish.js via a <script> tag, we need to wait until it loads.
+                if (!wait_for_script) {
+                    document.addEventListener("DOMContentLoaded", init);
+                }
+            </script>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+.movelist {
+    background: #0c85985c;
+    height: 290px;
+    padding: 20px;
+    min-height: 20px;
+    margin-bottom: 16px;
+    box-shadow: -3px 3px 3px rgba(0, 0, 0, .5);
+    border-radius: 25px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    position:absolute;
+}
+
+h3 {
+    font-weight: bold;
+    
+}
+
+#pgn
+{
+    overflow-y: scroll;
+    height:190px;
+}
+
+body {
+    background: #ddd;
+    width:100%;
+    height:100%;
+    overflow-y:hidden;
+}
+
+.status
+{
+    background: #f0e1bb;
+    /*padding-left: 12px;*/
+    height: 200px;
+    overflow-y: auto;
+    margin: 0px 0px;
+    position: absolute;
+    padding: 10px;
+    /*left: 660px;*/
+    width: 50%;
+    
+    margin-left: 63%;
+    
+    margin-top: 30px;
+    box-shadow: -3px 3px 3px rgba(0,0,0,.5);
+}
+
+.container
+{
+    margin-top:50px;
+}
+
+#contenedor
+{
+    height:200px;
+    overflow-y: auto;
+}
